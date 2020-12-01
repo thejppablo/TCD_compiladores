@@ -79,20 +79,8 @@ def menor(variavel, valor):
 
 def diferente(variavel,valor):
 	return int(var[variavel]) != int(valor)
-'''
-def repeticao(variavel, chave, valor,parentesis): #parms: ('i', '#', 'n')
-	listaWhile = chaves_while(lines)
-	while pal_res[chave](variavel,valor):
-		for x in listaWhile:
-			charss = list(x[1:].replace(" ", ""))
-			for i in range(1, len(charss)):
-				if charss[i] in var.keys():
-					charss[i] = var[charss[i]]
-			pal_res[x[0]](*charss)
-'''
-#  0         1      2
-#variavel, chave, valor,parentesis
-def repeticao(*parametros): #parms: ('i', '#', 'n')
+
+def repeticao(*parametros): 
 	listaWhile = chaves_while(lines)
 	while pal_res[parametros[1]](parametros[0],parametros[2]):
 		for x in listaWhile:
@@ -101,9 +89,7 @@ def repeticao(*parametros): #parms: ('i', '#', 'n')
 				if charss[i] in var.keys():
 					charss[i] = var[charss[i]]
 			pal_res[x[0]](*charss)
-#I n = 0 P 0
-#    0    1    2    3    4
-#  ('n', '=', '0', 'P', '0')
+
 def if_statments(*args):
 	if args[1] =='=':
 		if var[args[0]] == args[2]:
