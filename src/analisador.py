@@ -5,7 +5,7 @@ import os
 dir = os.path.dirname(os.getcwd())
 
 # lendo os dados presentes no arquivo
-base_file = open(f"{dir}/data/sourcefile.txt", "r")
+base_file = open(f"{dir}/data/heartbeat.txt", "r")
 
 # armazenando uma lista em que cada item é uma linha do arquivo:
 lines = base_file.readlines()
@@ -69,14 +69,17 @@ def mod(variavel, valor1, valor2):
 	var[variavel] = int(valor1) % int(valor2)
 
 def printar(variavel):
-	print(var[variavel])
+	if variavel in var.keys():
+		print(var[variavel])
+	else:
+		print(variavel)
 
 def menor(variavel, valor):
 	return int(var[variavel]) < int(valor)
 
 def diferente(variavel,valor):
 	return int(var[variavel]) != int(valor)
-
+'''
 def repeticao(variavel, chave, valor,parentesis): #parms: ('i', '#', 'n')
 	listaWhile = chaves_while(lines)
 	while pal_res[chave](variavel,valor):
@@ -86,6 +89,31 @@ def repeticao(variavel, chave, valor,parentesis): #parms: ('i', '#', 'n')
 				if charss[i] in var.keys():
 					charss[i] = var[charss[i]]
 			pal_res[x[0]](*charss)
+'''
+#  0         1      2
+#variavel, chave, valor,parentesis
+def repeticao(*parametros): #parms: ('i', '#', 'n')
+	listaWhile = chaves_while(lines)
+	while pal_res[parametros[1]](parametros[0],parametros[2]):
+		for x in listaWhile:
+			charss = list(x[1:].replace(" ", ""))
+			for i in range(1, len(charss)):
+				if charss[i] in var.keys():
+					charss[i] = var[charss[i]]
+			pal_res[x[0]](*charss)
+#I n = 0 P 0
+#    0    1    2    3    4
+#  ('n', '=', '0', 'P', '0')
+def if_statments(*args):
+	if args[1] =='=':
+		if var[args[0]] == args[2]:
+			pal_res[args[3]](*args[4:])
+	elif args[1] == '#':
+		if diferente(args[0],args[2]):
+			pal_res[args[3]](*args[4:])
+	elif args[1] == '<':
+		if menor(args[0],args[2]):
+			pal_res[args[3]](*args[4:])
 
 # PALAVRAS RESERVADAS:
 pal_res = {
@@ -100,7 +128,7 @@ pal_res = {
 	'#': diferente,
 	'P': printar,
 	'W': repeticao,
-	'I': 'if'
+	'I': if_statments
 }
 
 
@@ -137,4 +165,4 @@ for line in lines:
 
 	# visualização:
 	#print(f'Os chars são: {chars}')
-	print(f'As variaveis atualmente são: {var}')
+print(f'As variaveis atualmente são: {var}')
