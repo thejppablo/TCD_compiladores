@@ -1,11 +1,14 @@
 # biblioteca de manipulação do sistema operacional:
+import src.tokens
 import os
+
+arquivo = input("Qual arquivo? ")
 
 # capturando o diretorio raiz do projeto:
 dir = os.path.dirname(os.getcwd())
 
 # lendo os dados presentes no arquivo
-base_file = open(f"{dir}/data/heartbeat.txt", "r")
+base_file = open(f"{dir}/data/{arquivo}.txt", "r")
 
 # armazenando uma lista em que cada item é uma linha do arquivo:
 lines = base_file.readlines()
@@ -80,7 +83,7 @@ def menor(variavel, valor):
 def diferente(variavel,valor):
 	return int(var[variavel]) != int(valor)
 
-def repeticao(*parametros): 
+def repeticao(*parametros):
 	listaWhile = chaves_while(lines)
 	while pal_res[parametros[1]](parametros[0],parametros[2]):
 		for x in listaWhile:
@@ -152,3 +155,5 @@ for line in lines:
 	# visualização:
 	#print(f'Os chars são: {chars}')
 print(f'As variaveis atualmente são: {var}')
+
+src.tokens.pedacos()
